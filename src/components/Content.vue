@@ -250,10 +250,12 @@
           data = this.tableIhc
         }
         let html = printIhcsTable(data, (JSON.parse(sessionStorage.userInfo)).nick); // 需要打印的内容
-        let newWin = window.open('', '_self', '')  // 在当前页面新打开页面
+        let newWin = window.open('', '', '')  // 打开新页面
+        // let newWin = window.open('', '_self', '')  // 在当前页面新打开页面
         newWin.document.write(html)
         newWin.print()
-        newWin.location.reload() // 重新加载使窗口恢复到打印前状态
+        newWin.close() // 关闭新打开窗口
+        // newWin.location.reload() // 重新加载使窗口恢复到打印前状态
       },
       // 打印标签
       printLabel() {
