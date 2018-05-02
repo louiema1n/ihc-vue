@@ -2,7 +2,7 @@
   <el-container>
     <!-- Header -->
     <el-header>
-      <div class="fl title">XXX管理系统</div>
+      <div class="fl title">免疫组化管理系统</div>
       <div class="fr">
         <el-menu
           :default-active="activeIndex"
@@ -71,8 +71,8 @@
   }
 
   .title {
-    width: 125px;
-    text-align: center;
+    width: 250px;
+    text-align: left;
     line-height: 60px;
     color: #ffffff;
   }

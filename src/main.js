@@ -29,6 +29,8 @@ import {
   Option,
   OptionGroup,
   Switch,
+  Notification,
+  Upload,
 } from 'element-ui'
 import App from './App'
 import router from './router/route'
@@ -61,6 +63,7 @@ Vue.use(Input)
 Vue.use(Option)
 Vue.use(OptionGroup)
 Vue.use(Switch)
+Vue.use(Upload)
 // Vue.use(Message)
 
 Vue.config.productionTip = false
@@ -68,6 +71,7 @@ Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$notify = Notification;
 
 Vue.prototype.$http = axios
 axios.defaults.baseURL = 'http://localhost/'

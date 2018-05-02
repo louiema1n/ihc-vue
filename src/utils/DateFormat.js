@@ -25,6 +25,6 @@ export function timestamp2String(time, mode){
 }
 
 //创建补0函数
-function addZero(s) {
+export function addZero(s) {
   return s < 10 ? '0' + s : s;
 }

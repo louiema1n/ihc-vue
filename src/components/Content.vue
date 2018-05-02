@@ -25,20 +25,29 @@
             prefix-icon="el-icon-search"
             v-model="searchNo"
             autofocus
+            ref="searchNo"
+            @keyup.enter.native="onblur"
             @blur="blur"
             clearable>
           </el-input>
         </div>
+
         <!--<el-button icon="el-icon-search" circle></el-button>-->
-        <div style="float: right">
+        <div style="float: right;">
+          <el-upload style="float: right; margin-left: 10px"
+                     action="/ihcs/upload"
+                     name="fileIhcs"
+                     accept="application/vnd.ms-excel">
+            <el-button icon="el-icon-upload" round>导入</el-button>
+          </el-upload>
           <el-button type="success" icon="el-icon-plus" circle @click="add"></el-button>
           <el-button type="primary" icon="el-icon-edit" circle @click="edit"></el-button>
           <el-button type="danger" icon="el-icon-delete" circle @click="del"></el-button>
           <el-button-group>
-            <el-button type="warning" icon="el-icon-printer" circle title="打印标签"></el-button>
-            <el-button type="info" icon="el-icon-printer" circle title="打印加做单" @click="printTab"></el-button>
-            <el-button type="danger" icon="el-icon-printer" circle title="导出表格"></el-button>
+            <el-button type="warning" icon="el-icon-printer" @click="printLabel" round>标签</el-button>
+            <el-button type="info" icon="el-icon-printer" @click="printTab" round>加做单</el-button>
           </el-button-group>
+
         </div>
       </el-col>
     </el-row>
@@ -102,14 +111,16 @@
             width="180">
           </el-table-column>
         </el-table>
+
       </el-col>
     </el-row>
   </el-main>
 </template>
 
 <script>
-  import {timestamp2String} from '@/utils/DateFormat.js'
+  import {timestamp2String, addZero} from '@/utils/DateFormat.js'
   import {printIhcsTable} from '@/utils/Print.js'
+
   export default {
     data() {
       var date = new Date()
@@ -235,6 +246,7 @@
       printTab() {
         let data = this.multiSelectionData
         if (data == 0) {
+          // 未选择则打印全部
           data = this.tableIhc
         }
         let html = printIhcsTable(data, (JSON.parse(sessionStorage.userInfo)).nick); // 需要打印的内容
@@ -242,6 +254,56 @@
         newWin.document.write(html)
         newWin.print()
         newWin.location.reload() // 重新加载使窗口恢复到打印前状态
+      },
+      // 打印标签
+      printLabel() {
+        // 1.根据选择的内容生成标签所需数据，eg:18085885,-01,HE,,18085885-01.01.K2011011
+        let data = this.multiSelectionData
+        if (data == 0) {
+          // 未选择则打印全部
+          data = this.tableIhc
+        }
+        let result = ''
+        // 遍历
+        data.forEach((ihcs, indexIhcs) => {
+          // 初始化items
+          let ihcLabel = ''
+          let items = ihcs.item.split('、')
+          items.forEach((item, indexItem) => {
+            ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 1) + '.K2011011\r\n';
+          })
+          result += ihcLabel
+        })
+        // 弹出提示
+        this.$notify.warning({
+          title: '温馨提示',
+          message: '请确保玻片打印机及程序已经启动。',
+          showClose: false
+        });
+        // 2.提交到后台服务器
+        this.$http.post('ihcs/print', {
+          result
+        }).then(response => {
+          // success
+          let res = response.data
+          if (res != null) {
+            this.$message({
+              message: res,
+              type: 'success',
+              center: true
+            });
+          }
+        }, reasonse => {
+          // error
+          this.$message({
+            message: reasonse.message,
+            center: true,
+            type: 'error'
+          })
+        });
+      },
+      onblur() {
+        this.$refs['searchNo'].blur()
       }
     },
     created: function () {

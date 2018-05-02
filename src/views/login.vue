@@ -11,7 +11,9 @@
             <el-form-item prop="username">
               <el-input
                 placeholder="用户名"
+                ref="username"
                 v-model="form.username"
+                @keyup.enter.native="tabTo"
                 autofocus="true"
                 clearable>
               </el-input>
@@ -21,6 +23,8 @@
                 placeholder="密码"
                 v-model="form.password"
                 type="password"
+                ref="password"
+                @keyup.enter.native="onSubmit('loginForm')"
                 clearable>
               </el-input>
             </el-form-item>
@@ -31,8 +35,8 @@
         </el-col>
       </el-row>
 
-      <span>没有账号？</span>
-      <a href="#">马上注册</a>
+      <!--<span>没有账号？</span>-->
+      <!--<a href="#">马上注册</a>-->
     </div>
 </template>
 
@@ -117,6 +121,10 @@
           }
         })
       },
+      tabTo() {
+        this.$refs['username'].blur()
+        this.$refs['password'].focus()
+      }
     },
 
     mounted() {
@@ -128,6 +136,4 @@
     }
 
   }
-
-
 </script>
