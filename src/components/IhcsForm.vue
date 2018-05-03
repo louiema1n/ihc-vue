@@ -161,7 +161,7 @@
         // let method = 'post'
         this.$http({
             method: method,
-            url: 'ihcs/upd',
+            url: '/ihcs/upd',
             data: this.ihcsForm,
           }).then(response => {
           // success

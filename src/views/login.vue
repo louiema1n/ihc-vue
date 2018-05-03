@@ -81,7 +81,7 @@
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post('login', {
+            this.$http.post('/login', {
               username: this.form.username,
               password: encodePwd(this.form.username, this.form.password)
             }).then(response => {

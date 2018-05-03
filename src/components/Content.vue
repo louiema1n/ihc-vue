@@ -37,7 +37,10 @@
           <el-upload style="float: right; margin-left: 10px"
                      action="/ihcs/upload"
                      name="fileIhcs"
-                     accept="application/vnd.ms-excel">
+                     :on-success="uploadFileSuccess"
+                     :on-error="uploadFileError"
+                     :show-file-list="false"
+                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <el-button icon="el-icon-upload" round>导入</el-button>
           </el-upload>
           <el-button type="success" icon="el-icon-plus" circle @click="add"></el-button>
@@ -151,7 +154,7 @@
             // 处理state
             data.state = 0
             // 提交表单
-            this.$http.delete('ihcs/upd',
+            this.$http.delete('/ihcs/upd',
               {
                 data: data
               }
@@ -210,7 +213,7 @@
         }
         searchNo = this.searchNo == "" ? 0 : this.searchNo
         this.$http({
-          url: 'ihcs/all',
+          url: '/ihcs/all',
           method: 'get',
           params: {
             begin: begin,
@@ -271,8 +274,10 @@
           // 初始化items
           let ihcLabel = ''
           let items = ihcs.item.split('、')
+          // 默认第一张打印he
+          ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.K2011011\r\n';
           items.forEach((item, indexItem) => {
-            ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 1) + '.K2011011\r\n';
+            ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.K2011011\r\n';
           })
           result += ihcLabel
         })
@@ -283,7 +288,7 @@
           showClose: false
         });
         // 2.提交到后台服务器
-        this.$http.post('ihcs/print', {
+        this.$http.post('/ihcs/print', {
           result
         }).then(response => {
           // success
@@ -306,6 +311,14 @@
       },
       onblur() {
         this.$refs['searchNo'].blur()
+      },
+      // 上传文件成功
+      uploadFileSuccess(response, file, fileList) {
+        this.$message.success(file.name + " 上传成功")
+      },
+      // 上传失败
+      uploadFileError(err, file, fileList) {
+        this.$message.error(err)
       }
     },
     created: function () {
