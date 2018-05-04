@@ -76,8 +76,9 @@
             width="55">
           </el-table-column>
           <el-table-column
-            label="编号"
+            label="#"
             type="index"
+            align="center"
             width="50">
           </el-table-column>
           <el-table-column
