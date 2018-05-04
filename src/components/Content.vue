@@ -316,6 +316,7 @@
       // 上传文件成功
       uploadFileSuccess(response, file, fileList) {
         this.$message.success(file.name + " 上传成功")
+        this.getDataSources()
       },
       // 上传失败
       uploadFileError(err, file, fileList) {
