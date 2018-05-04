@@ -17,7 +17,7 @@
     <el-row type="flex" justify="center">
       <el-col :span="12">
 
-        <el-form :model="ihcsForm" status-icon :rules="rules" ref="ihcsForm" label-width="100px">
+        <el-form :model="ihcsForm" status-icon ref="ihcsForm" label-width="100px">
           <el-form-item label="病理号" prop="number">
             <el-input
               v-model="ihcsForm.number"
@@ -104,12 +104,7 @@
           time: '',
           state: true,
         },
-        rules: {
-          number: [
-            {required: true, message: '请输入病理号', trigger: 'change'},
-            {min: 5, max: 8, message: '长度在 5 到 8 个字符', trigger: 'change'}
-          ],
-        }, items: getItems(),
+        items: getItems(),
       }
     },
     methods: {
