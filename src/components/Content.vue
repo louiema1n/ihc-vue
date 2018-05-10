@@ -15,7 +15,7 @@
             start-placeholder="开始时间"
             end-placeholder="结束时间"
             @change="handleTime"
-            :default-time="['20:00:00', '19:59:59']">
+            :default-time="['16:00:00', '15:59:59']">
           </el-date-picker>
         </div>
 
@@ -133,7 +133,7 @@
       var day = date.getDate()
       return {
         tableIhc: [],
-        valueDateTime: [new Date(year, month, day - 1, 20, 0, 0), new Date(year, month, day, 19, 59, 59)],
+        valueDateTime: [new Date(year, month, day - 1, 16, 0, 0), new Date(year, month, day, 15, 59, 59)],
         multiSelectionData: [],
         searchNo: '',
       }
