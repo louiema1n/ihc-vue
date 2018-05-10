@@ -276,9 +276,9 @@
           let ihcLabel = ''
           let items = ihcs.item.split('、')
           // 默认第一张打印he
-          ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.K2011011\r\n';
+          ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
           items.forEach((item, indexItem) => {
-            ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.K2011011\r\n';
+            ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
           })
           result += ihcLabel
         })
