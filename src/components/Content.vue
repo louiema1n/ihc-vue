@@ -114,6 +114,17 @@
             align="center"
             width="180">
           </el-table-column>
+          <el-table-column
+            label="打印HE"
+            align="center"
+            width="100">
+            <template slot-scope="scope">
+              <el-switch
+                v-model="tableIhc[scope.$index].defaultHE"
+                active-color="#67C23A">
+              </el-switch>
+            </template>
+          </el-table-column>
         </el-table>
 
       </el-col>
@@ -236,6 +247,7 @@
             obj.nick = respose.data[i].user.nick
             obj.userid = respose.data[i].user.id
             obj.state = respose.data[i].state
+            obj.defaultHE = true
             data[i] = obj
           }
           this.tableIhc = data
@@ -275,8 +287,10 @@
           // 初始化items
           let ihcLabel = ''
           let items = ihcs.item.split('、')
-          // 默认第一张打印he
-          ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+          // 第一张打印是否默认he
+          if (ihcs.defaultHE) {
+            ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+          }
           items.forEach((item, indexItem) => {
             ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
           })
