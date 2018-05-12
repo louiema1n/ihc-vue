@@ -25,7 +25,7 @@
           </el-form-item>
 
           <el-form-item label="病理号" prop="number">
-            <el-input placeholder="起始病理号" v-model="ihcsForm.start" style="width: 49%">
+            <el-input placeholder="起始病理号" v-model="ihcsForm.start" style="width: 47%">
               <el-select v-model="ihcsForm.selectPre" slot="prepend" placeholder="前缀" style="width: 80px">
                 <el-option label="" value=""></el-option>
                 <el-option label="CT" value="CT"></el-option>
@@ -34,7 +34,7 @@
               </el-select>
             </el-input>
             <span> - </span>
-            <el-input placeholder="结束病理号" v-model="ihcsForm.end" style="width: 49%" :disabled="showItem"></el-input>
+            <el-input placeholder="结束病理号" v-model="ihcsForm.end" style="width: 47%" :disabled="showItem"></el-input>
           </el-form-item>
 
           <el-form-item label="小号" prop="son">
