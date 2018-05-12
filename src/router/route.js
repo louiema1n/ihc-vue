@@ -4,6 +4,7 @@ import Index from '@/components/Index'
 import Login from '@/views/login'
 import Content from '@/components/Content'
 import IhcsForm from '@/components/IhcsForm'
+import OthersPrint from '@/components/OthersPrint'
 
 Vue.use(Router)
 
@@ -25,6 +26,10 @@ export default new Router({
           component: IhcsForm,
           name: 'ihcsForm',
           props: true
+        }, {
+          path: '/othersPrint',
+          component: OthersPrint,
+          name: 'othersPrint',
         }
       ]
     }

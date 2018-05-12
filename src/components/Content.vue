@@ -112,7 +112,7 @@
             prop="nick"
             label="加做人"
             align="center"
-            width="180">
+            width="130">
           </el-table-column>
           <el-table-column
             label="打印HE"

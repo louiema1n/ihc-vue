@@ -13,6 +13,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
+          <el-menu-item index="3">其他打印</el-menu-item>
           <el-menu-item index="1">免疫组化</el-menu-item>
           <el-submenu index="2">
             <template slot="title">欢迎您，{{username}}</template>
@@ -40,10 +41,18 @@
     },
     methods: {
       handleSelect(index, indexPath) {
-        if (index == "quit") {
-          // 退出登录
-          sessionStorage.clear()
-          this.$router.push('/')
+        switch (index) {
+          case "quit":
+            // 退出登录
+            sessionStorage.clear()
+            this.$router.push('/')
+            break;
+          case "1":
+            this.$router.push('/content')
+            break;
+          case "3":
+            this.$router.push('/othersPrint')
+            break;
         }
       }
     },

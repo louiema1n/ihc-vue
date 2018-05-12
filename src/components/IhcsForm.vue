@@ -9,7 +9,6 @@
         <div style="float: right">
           <el-button type="success" icon="el-icon-check" circle @click="onSubmit('ihcsForm')"></el-button>
           <el-button type="info" icon="el-icon-close" circle @click="restForm('ihcsForm')"></el-button>
-          <el-button type="warning" icon="el-icon-printer" circle @click="print" title="打印标签"></el-button>
         </div>
       </el-col>
     </el-row>
