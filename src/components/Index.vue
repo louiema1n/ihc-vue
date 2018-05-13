@@ -13,6 +13,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
+          <el-menu-item index="4" v-show="showUser">用户管理</el-menu-item>
           <el-menu-item index="3">其他打印</el-menu-item>
           <el-menu-item index="1">免疫组化</el-menu-item>
           <el-submenu index="2">
@@ -36,7 +37,8 @@
     data() {
       return {
         activeIndex: '1',
-        username: ''
+        username: '',
+        showUser: false,
       }
     },
     methods: {
@@ -53,6 +55,9 @@
           case "3":
             this.$router.push('/othersPrint')
             break;
+          case "4":
+            this.$router.push('/user')
+            break;
         }
       }
     },
@@ -61,6 +66,10 @@
       if (sessionStorage.userInfo != null) {
         let userInfo = JSON.parse(sessionStorage.userInfo)
         this.username = (JSON.parse(sessionStorage.userInfo)).nick;
+        let usr = (JSON.parse(sessionStorage.userInfo)).username;
+        if (usr == 'admin') {
+          this.showUser = true
+        }
         this.$router.push('/content')
       } else {
         this.$router.push('/')
