@@ -244,8 +244,8 @@
             obj.time = respose.data[i].time
             obj.timeP = respose.data[i].timeP
             obj.remark = respose.data[i].remark
-            obj.nick = respose.data[i].user.nick
-            obj.userid = respose.data[i].user.id
+            obj.nick = respose.data[i].user == null ? respose.data[i].confirm : respose.data[i].user.nick
+            obj.userid = sessionStorage.userInfo.id
             obj.state = respose.data[i].state
             obj.defaultHE = true
             data[i] = obj
