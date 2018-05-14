@@ -32,6 +32,8 @@ import {
   Notification,
   Upload,
   InputNumber,
+  Popover,
+  Tag,
 } from 'element-ui'
 import App from './App'
 import router from './router/route'
@@ -66,6 +68,8 @@ Vue.use(OptionGroup)
 Vue.use(Switch)
 Vue.use(Upload)
 Vue.use(InputNumber)
+Vue.use(Popover)
+Vue.use(Tag)
 // Vue.use(Message)
 
 Vue.config.productionTip = false

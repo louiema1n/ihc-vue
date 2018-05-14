@@ -71,6 +71,19 @@
             </el-input>
 
           </el-form-item>
+          <el-form-item label="项目" prop="prj">
+            <el-input
+              disabled
+              v-model="ihcsForm.prj"></el-input>
+          </el-form-item>
+          <el-form-item label="原病理诊断" prop="results">
+            <el-input
+              type="textarea"
+              disabled
+              :autosize="{ minRows: 2, maxRows: 4}"
+              v-model="ihcsForm.results">
+            </el-input>
+          </el-form-item>
         </el-form>
 
       </el-col>
@@ -101,7 +114,10 @@
           item: '',
           userid: '',
           time: '',
+          prj: '',
+          results: '',
           state: true,
+          ismatch: '',
         },
         items: getItems(),
       }
@@ -150,6 +166,8 @@
         this.ihcsForm.userid = (JSON.parse(sessionStorage.userInfo)).id;
         // 处理time
         this.ihcsForm.time = new Date().getTime()
+        // 处理ismatch
+        this.ihcsForm.ismatch = true
         // 提交表单
         let method = (this.ihcsForm.id == '' ? 'post' : 'put')
         // let method = 'post'
@@ -196,7 +214,7 @@
         this.$router.push('/')
       }
       if (this.$route.params.ihcs != ' ') {
-        this.ihcsForm = JSON.parse(this.$route.params.ihcs)[0];
+        this.ihcsForm = this.$route.params[0];
       }
     }
 
