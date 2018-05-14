@@ -38,7 +38,7 @@
           <el-tag type="success">{{this.sucTotal}}</el-tag>
           <el-tag type="danger">{{this.errTotal}}</el-tag>
           <el-upload style="float: right; margin-left: 10px"
-                     action="http://localhost/ihcs/upload"
+                     action="/ihcs/upload"
                      name="fileIhcs"
                      :on-success="uploadFileSuccess"
                      :on-error="uploadFileError"
