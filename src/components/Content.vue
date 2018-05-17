@@ -262,6 +262,9 @@
             searchNo: this.searchNo,
           }
         }).then(respose => {
+          // 初始化计数
+          this.sucTotal = 0
+          this.errTotal = 0
           for (let i = 0; i < respose.data.length; i++) {
             var obj = {}
             obj.number = respose.data[i].number
