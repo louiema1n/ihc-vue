@@ -213,7 +213,7 @@
       } else {
         this.$router.push('/')
       }
-      if (this.$route.params.ihcs != ' ') {
+      if (this.$route.params[0] != null) {
         this.ihcsForm = this.$route.params[0];
       }
     }

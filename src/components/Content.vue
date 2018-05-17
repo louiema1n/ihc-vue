@@ -180,7 +180,7 @@
     },
     methods: {
       add() {
-        this.$router.push('/ihcsForm/ ')
+        this.$router.push({name: 'ihcsForm'})
       },
       singleRow(row, event, column) {
         this.$refs.tableIhc.toggleRowSelection(row);
@@ -252,14 +252,14 @@
           begin = timestamp2String(new Date(this.valueDateTime[0]).getTime())
           end = timestamp2String(new Date(this.valueDateTime[1]).getTime())
         }
-        searchNo = this.searchNo == "" ? 0 : this.searchNo
+        // searchNo = this.searchNo == "" ? 0 : this.searchNo
         this.$http({
           url: '/ihcs/all',
           method: 'get',
           params: {
             begin: begin,
             end: end,
-            searchNo: searchNo,
+            searchNo: this.searchNo,
           }
         }).then(respose => {
           for (let i = 0; i < respose.data.length; i++) {
