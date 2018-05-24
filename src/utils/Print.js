@@ -17,7 +17,10 @@ export function printIhcsTable(tableData, printer) {
     '      size: A4 landscape;\n' +
     '      page-break-inside: avoid;\n' +
     '      page-break-before: always\n' +
-    '    }\n' +
+    '    }' +
+    'table {' +
+    '      page-break-after:always;' +
+    '}' +
     '\n' +
     '    table, table tr th, table tr td {\n' +
     '      border: 1px solid #000000;\n' +
@@ -45,9 +48,9 @@ export function printIhcsTable(tableData, printer) {
     '    }\n' +
     '  </style>\n' +
     '</head>\n' +
-    '<body>\n' +
-    '<div style="width:1086px;height:730px;">\n' +
-    '  <h4 style="text-align: center">加做项目清单</h4>\n' +
+    '<body>\n';
+  let top =  '<div style="width:1086px;height:730px;">\n' +
+    '  <h4 style="text-align: center">免疫组化实验记录表<br>(IHC experiment record)</h4>\n' +
     '  <table>\n' +
     '    <tr>\n' +
     '      <th width="3%">#</th>\n' +
@@ -59,6 +62,7 @@ export function printIhcsTable(tableData, printer) {
     '    </tr>'
   let trs = ''
   let total = 0
+  html += top
   tableData.forEach((data, index) => {
     let tds = ''
     tds += '<td>' + (index+1) + '</td>'
