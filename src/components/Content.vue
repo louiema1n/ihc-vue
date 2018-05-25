@@ -134,7 +134,8 @@
 
 <script>
   import {timestamp2String, addZero} from '@/utils/DateFormat.js'
-  import {printIhcsTable} from '@/utils/Print.js'
+  // import {printIhcsTable} from '@/utils/Print.js'
+  import {printIhcsTable} from '@/utils/PrintGZ.js'
 
   export default {
     data() {
@@ -223,7 +224,7 @@
           begin = timestamp2String(new Date(this.valueDateTime[0]).getTime())
           end = timestamp2String(new Date(this.valueDateTime[1]).getTime())
         }
-        searchNo = this.searchNo == "" ? 0 : this.searchNo
+        searchNo = this.searchNo
         this.$http({
           url: '/ihcs/all',
           method: 'get',

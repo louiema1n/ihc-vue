@@ -76,7 +76,7 @@ Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$notify = Notification;
 
 Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://localhost/'
+axios.defaults.baseURL = 'http://localhost:8081/'
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.interceptors.response.use(function (response) {
 // 对响应数据做点什么
