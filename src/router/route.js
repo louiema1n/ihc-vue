@@ -24,10 +24,10 @@ export default new Router({
           path: '/content',
           component: Content
         }, {
-          path: '/ihcsForm',
+          path: '/ihcsForm/:ihcs',
           component: IhcsForm,
           name: 'ihcsForm',
-          // props: true
+          props: true
         }, {
           path: '/othersPrint',
           component: OthersPrint,

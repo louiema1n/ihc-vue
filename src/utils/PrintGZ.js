@@ -72,7 +72,7 @@ export function printIhcsTable(tableData, printer) {
     '    <tr>\n' +
     '      <td colspan="10">\n' +
     '        <p>\n' +
-    '          <span style="font-size: 9px">抗原修复: □低PH 3\' □ 高PH 3\'□一抗:2-8℃18-24h\'   □封闭37℃30\'   □二抗37℃30\'   □DAB 3\'   □上机Roche   □上机DAKO  □上机：基因   □其他：<br><strong>注：以上实验记录严格按照sop执行，部分抗体选择全自动染色机进行染色，用圈划出以示区分。</strong></span>\n' +
+    '          <span style="font-size: 9px">抗原修复: □低PH 3\' □ 高PH 3\'□一抗:2-8℃18-24h\'   □封闭37℃30\'   □二抗37℃30\'   □DAB 3\'   □上机Roche   □上机DAKO  □上机：基因   □其他：<br><strong>注：以上实验记录严格按照sop执行，部分抗体选择全自动染色机进行染色，用圈划出以示区分。</strong></span>\n' +
     '        </p>\n' +
     '      </td>\n' +
     '    </tr>' + '</table>\n'
