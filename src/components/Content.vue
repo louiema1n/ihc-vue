@@ -32,8 +32,11 @@
           </el-input>
         </div>
 
+
         <!--<el-button icon="el-icon-search" circle></el-button>-->
         <div style="float: right;">
+          <el-tag type="success">{{this.sucTotal}}</el-tag>
+          <el-tag type="danger">{{this.errTotal}}</el-tag>
           <el-upload style="float: right; margin-left: 10px"
                      action="/ihcs/upload"
                      name="fileIhcs"
@@ -84,7 +87,8 @@
           <el-table-column
             prop="number"
             label="病理号"
-            width="180">
+            sortable
+            width="120">
           </el-table-column>
           <el-table-column
             prop="son"
@@ -99,20 +103,43 @@
           </el-table-column>
           <el-table-column
             prop="total"
-            label="免疫组化项数"
+            label="细项数"
+            sortable
             align="center"
-            width="130">
+            width="110">
+          </el-table-column>
+          <el-table-column
+            prop="prj"
+            label="项目"
+            align="center"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="ismatch"
+            label="备注"
+            sortable
+            align="center"
+            width="80">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top">
+                <p>原诊断结果:</p>
+                <pre>{{ scope.row.results }}</pre>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium" :type="scope.row.ismatch ? 'success' : 'danger'">{{ scope.row.ismatch ? "成功" : "失败"}}</el-tag>
+                </div>
+              </el-popover>
+            </template>
           </el-table-column>
           <el-table-column
             prop="timeP"
             label="加做时间"
-            width="220">
+            width="200">
           </el-table-column>
           <el-table-column
             prop="nick"
             label="加做人"
             align="center"
-            width="130">
+            width="110">
           </el-table-column>
           <el-table-column
             label="打印HE"
@@ -134,8 +161,7 @@
 
 <script>
   import {timestamp2String, addZero} from '@/utils/DateFormat.js'
-  // import {printIhcsTable} from '@/utils/Print.js'
-  import {printIhcsTable} from '@/utils/PrintGZ.js'
+  import {printIhcsTable} from '@/utils/Print.js'
 
   export default {
     data() {
@@ -148,11 +174,13 @@
         valueDateTime: [new Date(year, month, day - 1, 16, 0, 0), new Date(year, month, day, 15, 59, 59)],
         multiSelectionData: [],
         searchNo: '',
+        sucTotal: 0,
+        errTotal: 0,
       }
     },
     methods: {
       add() {
-        this.$router.push('/ihcsForm/ ')
+        this.$router.push({name: 'ihcsForm'})
       },
       singleRow(row, event, column) {
         this.$refs.tableIhc.toggleRowSelection(row);
@@ -203,7 +231,7 @@
       },
       edit() {
         if (this.multiSelectionData.length == 1) {
-          this.$router.push('/ihcsForm/' + JSON.stringify(this.multiSelectionData))
+          this.$router.push({name: 'ihcsForm', params: this.multiSelectionData})
         } else {
           this.$message.info("请选择需要修改的那1条数据")
         }
@@ -224,16 +252,19 @@
           begin = timestamp2String(new Date(this.valueDateTime[0]).getTime())
           end = timestamp2String(new Date(this.valueDateTime[1]).getTime())
         }
-        searchNo = this.searchNo
+        // searchNo = this.searchNo == "" ? 0 : this.searchNo
         this.$http({
           url: '/ihcs/all',
           method: 'get',
           params: {
             begin: begin,
             end: end,
-            searchNo: searchNo,
+            searchNo: this.searchNo,
           }
         }).then(respose => {
+          // 初始化计数
+          this.sucTotal = 0
+          this.errTotal = 0
           for (let i = 0; i < respose.data.length; i++) {
             var obj = {}
             obj.number = respose.data[i].number
@@ -248,8 +279,17 @@
             obj.nick = respose.data[i].user == null ? respose.data[i].confirm : respose.data[i].user.nick
             obj.userid = sessionStorage.userInfo.id
             obj.state = respose.data[i].state
+            obj.prj = respose.data[i].prj
+            obj.ismatch = respose.data[i].ismatch
+            obj.results = respose.data[i].results
             obj.defaultHE = true
             data[i] = obj
+            // 统计
+            if (obj.ismatch) {
+              this.sucTotal++
+            } else {
+              this.errTotal++
+            }
           }
           this.tableIhc = data
         }, response => {
@@ -290,7 +330,7 @@
           let items = ihcs.item.split('、')
           // 第一张打印是否默认he
           if (ihcs.defaultHE) {
-            ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE-' + ihcs.total + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+            ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
           }
           items.forEach((item, indexItem) => {
             ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
