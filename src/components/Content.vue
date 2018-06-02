@@ -161,8 +161,8 @@
 
 <script>
   import {timestamp2String, addZero} from '@/utils/DateFormat.js'
-  import {printIhcsTable} from '@/utils/Print.js'
-
+  // import {printIhcsTable} from '@/utils/Print.js'
+  import {printIhcsTable} from '@/utils/PrintGZ.js'
   export default {
     data() {
       var date = new Date()
@@ -330,7 +330,7 @@
           let items = ihcs.item.split('、')
           // 第一张打印是否默认he
           if (ihcs.defaultHE) {
-            ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+            ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE（'+ihcs.total+'）,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
           }
           items.forEach((item, indexItem) => {
             ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
@@ -382,12 +382,9 @@
       this.getDataSources()
     },
     mounted() {
-
     }
-
   }
 </script>
 
 <style>
-
 </style>
