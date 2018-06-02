@@ -163,7 +163,6 @@
   import {timestamp2String, addZero} from '@/utils/DateFormat.js'
   // import {printIhcsTable} from '@/utils/Print.js'
   import {printIhcsTable} from '@/utils/PrintGZ.js'
-
   export default {
     data() {
       var date = new Date()
@@ -383,12 +382,9 @@
       this.getDataSources()
     },
     mounted() {
-
     }
-
   }
 </script>
 
 <style>
-
 </style>
