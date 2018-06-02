@@ -339,18 +339,39 @@
           this.$message.warning("请选择需要打印的数据");
         } else {
           let result = '';
+          let pan = 1   // 盘数
+          let panIndex = 0  // 每盘序号，最大数20
+          let doctor = data[0].doctor // 病理医生
           // 遍历
           data.forEach((ihcs, indexIhcs) => {
+            if (doctor == ihcs.doctor) {
+              // 属于同一医生,不处理
+
+            } else {
+              // 属于不同医生
+              panIndex = 0
+              doctor = ihcs.doctor
+              // 盘自增
+              pan++
+            }
             // 初始化items
-            let ihcLabel = ''
+            let ihcLabel = '';
             let items = ihcs.item.split('、')
             // 第一张打印是否默认he
+            panIndex++
             if (ihcs.defaultHE) {
-              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE（' + ihcs.total + '）,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE (' + ihcs.total + ')[' + pan + '-' + panIndex + '],,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+            } else {
+              panIndex = 0
             }
             items.forEach((item, indexItem) => {
-              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
-            })
+              if (panIndex >= 20) {
+                pan++
+                panIndex = 0
+              }
+              panIndex++
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ' [' + pan + '-' + panIndex + '],,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
+            });
             result += ihcLabel
           })
           // 弹出提示
