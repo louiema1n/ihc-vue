@@ -89,7 +89,7 @@ export function printIhcsTable(tableData, printer) {
     tds += '<td>' + data.nick + '</td>'
     tds += '<td>' + data.number + '</td>'
     tds += '<td>' + data.son + '</td>'
-    tds += '<td>' + '未知' + '</td>'
+    tds += '<td>' + '' + '</td>'
     tds += '<td>' + data.total + '</td>'
     tds += '<td colspan="5" style="text-align: left">' + data.item + '</td>'
 

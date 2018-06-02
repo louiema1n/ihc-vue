@@ -72,6 +72,7 @@
           border
           @row-click="singleRow"
           @selection-change="handleSelectionChange"
+          :default-sort="{prop: 'doctor', order: 'descending'}"
           style="width: 100%">
           <el-table-column
             type="selection"
@@ -125,7 +126,9 @@
                 <p>原诊断结果:</p>
                 <pre>{{ scope.row.results }}</pre>
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" :type="scope.row.ismatch ? 'success' : 'danger'">{{ scope.row.ismatch ? "成功" : "失败"}}</el-tag>
+                  <el-tag size="medium" :type="scope.row.ismatch ? 'success' : 'danger'">{{ scope.row.ismatch ? "成功" :
+                    "失败"}}
+                  </el-tag>
                 </div>
               </el-popover>
             </template>
@@ -138,6 +141,13 @@
           <el-table-column
             prop="nick"
             label="加做人"
+            align="center"
+            width="110">
+          </el-table-column>
+          <el-table-column
+            prop="doctor"
+            label="病理医生"
+            sortable
             align="center"
             width="110">
           </el-table-column>
@@ -163,6 +173,7 @@
   import {timestamp2String, addZero} from '@/utils/DateFormat.js'
   // import {printIhcsTable} from '@/utils/Print.js'
   import {printIhcsTable} from '@/utils/PrintGZ.js'
+
   export default {
     data() {
       var date = new Date()
@@ -282,6 +293,7 @@
             obj.prj = respose.data[i].prj
             obj.ismatch = respose.data[i].ismatch
             obj.results = respose.data[i].results
+            obj.doctor = respose.data[i].doctor
             obj.defaultHE = true
             data[i] = obj
             // 统计
@@ -304,15 +316,18 @@
         let data = this.multiSelectionData
         if (data == 0) {
           // 未选择则打印全部
-          data = this.tableIhc
+          // data = this.tableIhc
+          this.$message.warning("请选择需要打印的数据");
+        } else {
+          let html = printIhcsTable(data, (JSON.parse(sessionStorage.userInfo)).nick); // 需要打印的内容
+          let newWin = window.open('', '', '')  // 打开新页面
+          // let newWin = window.open('', '_self', '')  // 在当前页面新打开页面
+          newWin.document.write(html)
+          newWin.print()
+          newWin.close() // 关闭新打开窗口
+          // newWin.location.reload() // 重新加载使窗口恢复到打印前状态
         }
-        let html = printIhcsTable(data, (JSON.parse(sessionStorage.userInfo)).nick); // 需要打印的内容
-        let newWin = window.open('', '', '')  // 打开新页面
-        // let newWin = window.open('', '_self', '')  // 在当前页面新打开页面
-        newWin.document.write(html)
-        newWin.print()
-        newWin.close() // 关闭新打开窗口
-        // newWin.location.reload() // 重新加载使窗口恢复到打印前状态
+
       },
       // 打印标签
       printLabel() {
@@ -320,50 +335,52 @@
         let data = this.multiSelectionData
         if (data == 0) {
           // 未选择则打印全部
-          data = this.tableIhc
-        }
-        let result = ''
-        // 遍历
-        data.forEach((ihcs, indexIhcs) => {
-          // 初始化items
-          let ihcLabel = ''
-          let items = ihcs.item.split('、')
-          // 第一张打印是否默认he
-          if (ihcs.defaultHE) {
-            ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE（'+ihcs.total+'）,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
-          }
-          items.forEach((item, indexItem) => {
-            ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
+          // data = this.tableIhc
+          this.$message.warning("请选择需要打印的数据");
+        } else {
+          let result = '';
+          // 遍历
+          data.forEach((ihcs, indexIhcs) => {
+            // 初始化items
+            let ihcLabel = ''
+            let items = ihcs.item.split('、')
+            // 第一张打印是否默认he
+            if (ihcs.defaultHE) {
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE（' + ihcs.total + '）,,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+            }
+            items.forEach((item, indexItem) => {
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
+            })
+            result += ihcLabel
           })
-          result += ihcLabel
-        })
-        // 弹出提示
-        this.$notify.warning({
-          title: '温馨提示',
-          message: '请确保玻片打印机及程序已经启动。',
-          showClose: false
-        });
-        // 2.提交到后台服务器
-        this.$http.post('/ihcs/print', {
-          result
-        }).then(response => {
-          // success
-          let res = response.data
-          if (res != null) {
+          // 弹出提示
+          this.$notify.warning({
+            title: '温馨提示',
+            message: '请确保玻片打印机及程序已经启动。',
+            showClose: false
+          });
+          // 2.提交到后台服务器
+          this.$http.post('/ihcs/print', {
+            result
+          }).then(response => {
+            // success
+            let res = response.data
+            if (res != null) {
+              this.$message({
+                message: res,
+                type: 'success',
+                center: true
+              });
+            }
+          }, reasonse => {
+            // error
             this.$message({
-              message: res,
-              type: 'success',
-              center: true
-            });
-          }
-        }, reasonse => {
-          // error
-          this.$message({
-            message: reasonse.message,
-            center: true,
-            type: 'error'
-          })
-        });
+              message: reasonse.message,
+              center: true,
+              type: 'error'
+            })
+          });
+        }
       },
       onblur() {
         this.$refs['searchNo'].blur()
