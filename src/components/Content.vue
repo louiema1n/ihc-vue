@@ -91,12 +91,12 @@
             sortable
             width="120">
           </el-table-column>
-          <el-table-column
-            prop="son"
-            label="小号"
-            align="center"
-            width="80">
-          </el-table-column>
+          <!--<el-table-column-->
+            <!--prop="son"-->
+            <!--label="小号"-->
+            <!--align="center"-->
+            <!--width="80">-->
+          <!--</el-table-column>-->
           <el-table-column
             prop="item"
             label="加做项目"
@@ -278,10 +278,10 @@
           this.errTotal = 0
           for (let i = 0; i < respose.data.length; i++) {
             var obj = {}
-            obj.number = respose.data[i].number
             obj.id = respose.data[i].id
             let son = respose.data[i].son
             obj.son = son < 10 ? '0' + son : son
+            obj.number = respose.data[i].number + '-' + obj.son
             obj.total = respose.data[i].total
             obj.item = respose.data[i].item
             obj.time = respose.data[i].time
