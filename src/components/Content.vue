@@ -38,7 +38,7 @@
           <el-tag type="success">{{this.sucTotal}}</el-tag>
           <el-tag type="danger">{{this.errTotal}}</el-tag>
           <el-upload style="float: right; margin-left: 10px"
-                     action="/ihcs/upload"
+                     action="http://localhost/ihcs/upload"
                      name="fileIhcs"
                      :on-success="uploadFileSuccess"
                      :on-error="uploadFileError"
@@ -72,7 +72,6 @@
           border
           @row-click="singleRow"
           @selection-change="handleSelectionChange"
-          :default-sort="{prop: 'doctor', order: 'descending'}"
           style="width: 100%">
           <el-table-column
             type="selection"
@@ -86,9 +85,8 @@
             width="50">
           </el-table-column>
           <el-table-column
-            prop="number"
+            prop="numberF"
             label="病理号"
-            sortable
             width="120">
           </el-table-column>
           <!--<el-table-column-->
@@ -146,7 +144,6 @@
           <el-table-column
             prop="doctor"
             label="病理医生"
-            sortable
             align="center"
             width="110">
           </el-table-column>
@@ -280,7 +277,8 @@
             obj.id = respose.data[i].id
             let son = respose.data[i].son
             obj.son = son < 10 ? '0' + son : son
-            obj.number = respose.data[i].number + '-' + obj.son
+            obj.number = respose.data[i].number
+            obj.numberF = respose.data[i].number + '-' + obj.son
             obj.total = respose.data[i].total
             obj.item = respose.data[i].item
             obj.time = respose.data[i].time
