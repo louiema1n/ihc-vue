@@ -99,21 +99,20 @@
           <!--</el-table-column>-->
           <el-table-column
             prop="item"
-            label="加做项目"
-          >
+            label="加做项目">
           </el-table-column>
-          <el-table-column
-            prop="total"
-            label="细项数"
-            sortable
-            align="center"
-            width="110">
-          </el-table-column>
+          <!--<el-table-column-->
+            <!--prop="total"-->
+            <!--label="细项数"-->
+            <!--sortable-->
+            <!--align="center"-->
+            <!--width="110">-->
+          <!--</el-table-column>-->
           <el-table-column
             prop="prj"
             label="项目"
             align="center"
-            width="180">
+            width="140">
           </el-table-column>
           <el-table-column
             prop="ismatch"
@@ -136,13 +135,13 @@
           <el-table-column
             prop="timeP"
             label="加做时间"
-            width="200">
+            width="180">
           </el-table-column>
           <el-table-column
             prop="nick"
             label="加做人"
             align="center"
-            width="110">
+            width="90">
           </el-table-column>
           <el-table-column
             prop="doctor"
@@ -154,7 +153,7 @@
           <el-table-column
             label="打印HE"
             align="center"
-            width="100">
+            width="70">
             <template slot-scope="scope">
               <el-switch
                 v-model="tableIhc[scope.$index].defaultHE"
