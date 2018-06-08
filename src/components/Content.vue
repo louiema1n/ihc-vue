@@ -291,6 +291,7 @@
             obj.ismatch = respose.data[i].ismatch
             obj.results = respose.data[i].results
             obj.doctor = respose.data[i].doctor
+            obj.name = respose.data[i].name
             obj.defaultHE = true
             data[i] = obj
             // 统计
