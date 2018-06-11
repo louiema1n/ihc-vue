@@ -71,6 +71,13 @@
             </el-input>
 
           </el-form-item>
+          <el-form-item label="病理医生" prop="doctor">
+            <el-input
+              v-model="ihcsForm.doctor"
+              auto-complete="on"
+              placeholder="请输入病理医生，否则无法生成正确的分拣号"
+              clearable></el-input>
+          </el-form-item>
           <el-form-item label="项目" prop="prj">
             <el-input
               disabled
