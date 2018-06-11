@@ -71,6 +71,7 @@
           stripe
           border
           @row-click="singleRow"
+          @select-all="selectAll"
           @selection-change="handleSelectionChange"
           style="width: 100%">
           <el-table-column
@@ -191,6 +192,9 @@
       },
       singleRow(row, event, column) {
         this.$refs.tableIhc.toggleRowSelection(row);
+      },
+      selectAll(selection) {
+        this.multiSelectionData = this.tableIhc
       },
       handleSelectionChange(selection) {
         this.multiSelectionData = selection
