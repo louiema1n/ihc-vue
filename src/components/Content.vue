@@ -90,21 +90,21 @@
             width="120">
           </el-table-column>
           <!--<el-table-column-->
-            <!--prop="son"-->
-            <!--label="小号"-->
-            <!--align="center"-->
-            <!--width="80">-->
+          <!--prop="son"-->
+          <!--label="小号"-->
+          <!--align="center"-->
+          <!--width="80">-->
           <!--</el-table-column>-->
           <el-table-column
             prop="item"
             label="加做项目">
           </el-table-column>
           <!--<el-table-column-->
-            <!--prop="total"-->
-            <!--label="细项数"-->
-            <!--sortable-->
-            <!--align="center"-->
-            <!--width="110">-->
+          <!--prop="total"-->
+          <!--label="细项数"-->
+          <!--sortable-->
+          <!--align="center"-->
+          <!--width="110">-->
           <!--</el-table-column>-->
           <el-table-column
             prop="prj"
@@ -329,7 +329,7 @@
       },
       // 打印标签
       printLabel() {
-        // 1.根据选择的内容生成标签所需数据，eg:18085885,-01,HE,,18085885-01.01.K2011011
+        // 1.根据选择的内容生成标签所需数据，eg:1890210,-01,D-PAS,1-1,1890210-01.02.K010101001
         let data = this.multiSelectionData
         if (data == 0) {
           // 未选择则打印全部
@@ -358,7 +358,7 @@
             // 第一张打印是否默认he
             panIndex++
             if (ihcs.defaultHE) {
-              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE (' + ihcs.total + '),,' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE,['+ + pan + '-' + panIndex + ']'+'\r\n';
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE (' + ihcs.total + '),' + pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
             } else {
               panIndex = 0
             }
@@ -368,7 +368,7 @@
                 panIndex = 0
               }
               panIndex++
-              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',,' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE,['+ + pan + '-' + panIndex + ']'+'\r\n';
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',' + +pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
             });
             result += ihcLabel
           })
