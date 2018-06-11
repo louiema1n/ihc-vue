@@ -364,7 +364,7 @@
             if (ihcs.defaultHE) {
               ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE (' + ihcs.total + '),' + pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
             } else {
-              panIndex = 0
+              panIndex--
             }
             items.forEach((item, indexItem) => {
               if (panIndex >= 20) {
