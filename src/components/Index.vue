@@ -15,6 +15,7 @@
         >
           <el-menu-item index="4" v-show="showUser">用户管理</el-menu-item>
           <el-menu-item index="3">其他打印</el-menu-item>
+          <el-menu-item index="5">手动打印</el-menu-item>
           <el-menu-item index="1">免疫组化</el-menu-item>
           <el-submenu index="2">
             <template slot="title">欢迎您，{{username}}</template>
@@ -57,6 +58,9 @@
             break;
           case "4":
             this.$router.push('/user')
+            break;
+            case "5":
+            this.$router.push('/ihcManual')
             break;
         }
       }

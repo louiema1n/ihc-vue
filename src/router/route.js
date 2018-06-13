@@ -5,6 +5,7 @@ import Login from '@/views/login'
 import Content from '@/components/Content'
 import IhcsForm from '@/components/IhcsForm'
 import OthersPrint from '@/components/OthersPrint'
+import IhcManual from '@/components/ihcManual'
 import User from '@/components/User'
 import UserForm from '@/components/UserForm'
 
@@ -32,6 +33,10 @@ export default new Router({
           path: '/othersPrint',
           component: OthersPrint,
           name: 'othersPrint',
+        }, {
+          path: '/ihcManual',
+          component: IhcManual,
+          name: 'ihcManual',
         }, {
           path: '/User',
           component: User,
