@@ -86,7 +86,7 @@ export function printIhcsTable(tableData, printer) {
     let date = data.timeP
     date = date.substr(0, 10)
     tds += '<td>' + date + '</td>'
-    tds += '<td>' + data.nick + '</td>'
+    tds += '<td>' + data.doctor + '</td>'
     tds += '<td>' + data.number + '</td>'
     tds += '<td>' + data.son + '</td>'
     tds += '<td>' + data.name + '</td>'
