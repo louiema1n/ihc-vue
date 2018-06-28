@@ -52,6 +52,7 @@
           <el-button-group>
             <el-button type="warning" icon="el-icon-printer" @click="printLabel" round>标签</el-button>
             <el-button type="info" icon="el-icon-printer" @click="printTab" round>加做单</el-button>
+            <el-button type="success" icon="el-icon-download" onclick="window.open('./static/模板-旧系统会诊免疫组化确定加做清单.xlsx')" round>模板</el-button>
           </el-button-group>
 
         </div>
