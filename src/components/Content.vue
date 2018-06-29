@@ -281,7 +281,7 @@
             var obj = {}
             obj.id = respose.data[i].id
             let son = respose.data[i].son
-            obj.son = son < 10 ? '0' + son : son
+            obj.son = son
             obj.number = respose.data[i].number
             obj.numberF = respose.data[i].number + '-' + obj.son
             obj.total = respose.data[i].total
