@@ -101,7 +101,7 @@ export function printIhcsTable(tableData, printer) {
     if (length < 13 && index == length - 1) {
       top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
         '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
-        '  <span style="float: right; margin-right: 3px">打印人：'+printer+'</span>\n' +
+        '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
         '</div>\n' +
         '</body>\n' +
         '</html>'
@@ -111,7 +111,7 @@ export function printIhcsTable(tableData, printer) {
       if (index % 13 == 0) {
         top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
           '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
-          '  <span style="float: right; margin-right: 3px">打印人：'+printer+'</span>\n' +
+          '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
           '</div>\n' +
           '</body>\n' +
           '</html>'
