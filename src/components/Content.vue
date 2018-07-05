@@ -112,7 +112,7 @@
             prop="total"
             label="项目数"
             align="center"
-            width="50">
+            width="80">
           </el-table-column>
           <el-table-column
             prop="ismatch"
