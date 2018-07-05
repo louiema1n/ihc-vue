@@ -109,10 +109,10 @@
           <!--width="110">-->
           <!--</el-table-column>-->
           <el-table-column
-            prop="prj"
-            label="项目"
+            prop="total"
+            label="项目数"
             align="center"
-            width="140">
+            width="50">
           </el-table-column>
           <el-table-column
             prop="ismatch"
