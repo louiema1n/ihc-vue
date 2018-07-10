@@ -59,7 +59,7 @@ export function printIhcsTable(tableData, printer) {
     '    </tr>\n' +
     '    <!-- 第三行 -->\n' +
     '    <tr style="text-align: center; font-size: 12px; font-weight: bold">\n' +
-    '      <td colspan="2" width="16%"><p><span>日期/操作医生</span></p></td>\n' +
+    '      <td colspan="2" width="20%"><p><span>日期/操作医生</span></p></td>\n' +
     '      <td width="10%"><p><span>病理号</span></p></td>\n' +
     '      <td width="8%"><p><span>蜡块号/数量</span></p></td>\n' +
     '      <td width="7%"><p><span >姓名</span></p></td>\n' +
