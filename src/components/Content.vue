@@ -74,6 +74,7 @@
           @row-click="singleRow"
           @select-all="selectAll"
           @selection-change="handleSelectionChange"
+          @header-click="allSelectPrintHe"
           style="width: 100%">
           <el-table-column
             type="selection"
@@ -152,6 +153,7 @@
           <el-table-column
             label="打印HE"
             align="center"
+            class-name="pHe"
             width="70">
             <template slot-scope="scope">
               <el-switch
@@ -417,6 +419,19 @@
       // 上传失败
       uploadFileError(err, file, fileList) {
         this.$message.error(err)
+      },
+      // 全选默认打印HE
+      allSelectPrintHe(column, event) {
+        var firstDHe = this.tableIhc[0].defaultHE
+        if (column.className == "pHe" && firstDHe) {
+          this.tableIhc.forEach((ihcs, indexIhcs) => {
+            ihcs.defaultHE = false
+          })
+        } else {
+          this.tableIhc.forEach((ihcs, indexIhcs) => {
+            ihcs.defaultHE = true
+          })
+        }
       }
     },
     created: function () {
