@@ -138,10 +138,18 @@
             label="加做时间"
             width="180">
           </el-table-column>
+          <!--<el-table-column-->
+            <!--prop="nick"-->
+            <!--label="加做人"-->
+            <!--align="center"-->
+            <!--width="90">-->
+          <!--</el-table-column>-->
           <el-table-column
-            prop="nick"
-            label="加做人"
+            prop="batch"
+            label="批次"
             align="center"
+            :filters="filterCondi"
+            :filter-method="filterBatch"
             width="90">
           </el-table-column>
           <el-table-column
@@ -187,6 +195,7 @@
         searchNo: '',
         sucTotal: 0,
         errTotal: 0,
+        filterCondi: [],
       }
     },
     methods: {
@@ -279,6 +288,7 @@
           // 初始化计数
           this.sucTotal = 0
           this.errTotal = 0
+          let condis = [], lastBatch = null
           for (let i = 0; i < respose.data.length; i++) {
             var obj = {}
             obj.id = respose.data[i].id
@@ -300,6 +310,11 @@
             obj.doctor = respose.data[i].doctor
             obj.name = respose.data[i].name
             obj.defaultHE = true
+            obj.batch = respose.data[i].batch
+            if (obj.batch != lastBatch) {
+              condis.push({'text': obj.batch, 'value': obj.batch});
+              lastBatch = obj.batch
+            }
             data[i] = obj
             // 统计
             if (obj.ismatch) {
@@ -309,6 +324,7 @@
             }
           }
           this.tableIhc = data
+          this.filterCondi = condis
         }, response => {
           this.$message.error('服务器繁忙，请稍后再试')
         });
@@ -432,6 +448,10 @@
             ihcs.defaultHE = true
           })
         }
+      },
+      // 过滤批次
+      filterBatch(value, row) {
+        return row.batch === value;
       }
     },
     created: function () {
