@@ -451,6 +451,8 @@
       },
       // 过滤批次
       filterBatch(value, row) {
+        // 清空全选tableIhc
+        this.$refs.tableIhc.clearSelection();
         return row.batch === value;
       }
     },
