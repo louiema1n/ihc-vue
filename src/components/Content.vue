@@ -206,7 +206,7 @@
         this.$refs.tableIhc.toggleRowSelection(row);
       },
       selectAll(selection) {
-        this.multiSelectionData = this.tableIhc
+        this.multiSelectionData = selection
       },
       handleSelectionChange(selection) {
         this.multiSelectionData = selection
