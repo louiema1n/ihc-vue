@@ -59,7 +59,7 @@ export function printIhcsTable(tableData, printer) {
     '    </tr>\n' +
     '    <!-- 第三行 -->\n' +
     '    <tr style="text-align: center; font-size: 12px; font-weight: bold">\n' +
-    '      <td colspan="2" width="20%"><p><span>日期/操作医生</span></p></td>\n' +
+    '      <td colspan="2"><p><span>日期/操作医生</span></p></td>\n' +
     '      <td width="10%"><p><span>病理号</span></p></td>\n' +
     '      <td width="8%"><p><span>蜡块号/数量</span></p></td>\n' +
     '      <td width="7%"><p><span >姓名</span></p></td>\n' +
@@ -85,8 +85,8 @@ export function printIhcsTable(tableData, printer) {
     let tds = ''
     let date = data.timeP
     date = date.substr(0, 10)
-    tds += '<td>' + date + '</td>'
-    tds += '<td>' + data.doctor + '</td>'
+    tds += '<td width="8%">' + date + '</td>'
+    tds += '<td width="12%">' + data.doctor + '</td>'
     tds += '<td>' + data.number + '</td>'
     tds += '<td>' + data.son + '</td>'
     tds += '<td>' + data.name + '</td>'
@@ -97,40 +97,43 @@ export function printIhcsTable(tableData, printer) {
     top += trs
     total += data.total
 
-    // 满13条数据分页
-    if (length < 13 && index == length - 1) {
-      top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
-        '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
-        '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
-        '</div>\n' +
-        '</body>\n' +
-        '</html>'
-      total = 0
-    }
-    if (length >= 13 && index != 0) {
-      if (index % 13 == 0) {
-        top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
-          '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
-          '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
-          '</div>\n' +
-          '</body>\n' +
-          '</html>'
-        total = 0
-        if (index != length - 1) {
-          top += tableTop
-        }
-      } else {
-        if (index == length - 1) {
-          top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
-            '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
-            '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
-            '</div>\n' +
-            '</body>\n' +
-            '</html>'
-          total = 0
-        }
-      }
-    }
+    // // 满13条数据分页
+    // if (length < 13 && index == length - 1) {
+    //   top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
+    //     '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
+    //     '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
+    //     '</div>\n' +
+    //     '</body>\n' +
+    //     '</html>'
+    //   total = 0
+    // }
+    // if (length >= 13 && index != 0) {
+    //   if (index % 13 == 0) {
+    //     top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
+    //       '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
+    //       '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
+    //       '</div>\n' +
+    //       '</body>\n' +
+    //       '</html>'
+    //     total = 0
+    //     if (index != length - 1) {
+    //       top += tableTop
+    //     }
+    //   } else {
+    //     if (index == length - 1) {
+    // top放在这里的
+
+    //       total = 0
+    //     }
+    //   }
+    // }
   })
+  top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
+    '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
+    '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
+    '</div>\n' +
+    '</body>\n' +
+    '</html>'
+
   return top;
 }
