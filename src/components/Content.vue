@@ -381,7 +381,7 @@
             // 第一张打印是否默认he
             panIndex++
             if (ihcs.defaultHE) {
-              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE (' + ihcs.total + '),' + pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '.CODE\r\n';
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',HE (' + ihcs.total + '),' + pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(1) + '_CODE\r\n';
             } else {
               panIndex--
             }
@@ -391,7 +391,7 @@
                 panIndex = 0
               }
               panIndex++
-              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',' + +pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '.CODE\r\n';
+              ihcLabel += ihcs.number + ',-' + ihcs.son + ',' + item + ',' + +pan + '-' + panIndex + ',' + ihcs.number + '-' + ihcs.son + '.' + addZero(indexItem + 2) + '_CODE\r\n';
             });
             result += ihcLabel
           })
