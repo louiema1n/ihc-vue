@@ -30,44 +30,44 @@ export function printIhcsTable(tableData, printer) {
 
   let tableTop = '<div>\n' +
     '  <h4 style="text-align: center">免疫组化实验记录表<br>(IHC experiment record)</h4>\n' +
+    '          <span style="font-size: 14px">表号：GZKM-SOP0307.200.05</span>\n' +
     '  <table>\n' +
     '    <!-- 第一行 -->\n' +
     '    <tr>\n' +
-    '      <td colspan="7" rowspan="2" width="70%">\n' +
+    '      <td colspan="7" rowspan="3" width="70%">\n' +
     '        <p>\n' +
-    '          <span>异常标本处理登记：</span></p>\n' +
+    '          <span>异常登记：</span></p>\n' +
     '        <p>\n' +
-    '          <span>备注：</span></p></td>\n' +
+    '          <span>特染：</span></p></td>\n' +
     '      <td colspan="3">\n' +
     '        <p>\n' +
-    '          <span>日工作量统计<br></span>\n' +
-    '          <span style="font-size: 14px">表号：GZKM-SOP0307.200.05</span>\n' +
+    '          <span id="batch">批次:<br></span>\n' +
     '        </p>\n' +
     '      </td>\n' +
     '    </tr>\n' +
     '    <!-- 第二行 -->\n' +
     '    <tr>\n' +
-    '      <td>\n' +
-    '        <p><span>IHC：</span></p>\n' +
-    '      </td>\n' +
-    '      <td>\n' +
-    '        <p><span>ISH：</span></p>\n' +
-    '      </td>\n' +
-    '      <td>\n' +
-    '        <p><span>特染：</span></p>\n' +
+    '      <td colspan="3">\n' +
+    '        <p><span id="total">总计：</span></p>\n' +
     '      </td>\n' +
     '    </tr>\n' +
     '    <!-- 第三行 -->\n' +
+    '    <tr>\n' +
+    '      <td colspan="3">\n' +
+    '        <p><span id="time">日期：</span></p>\n' +
+    '      </td>\n' +
+    '    </tr>\n' +
+    '    <!-- 第四行 -->\n' +
     '    <tr style="text-align: center; font-size: 12px; font-weight: bold">\n' +
-    '      <td colspan="2"><p><span>日期/操作医生</span></p></td>\n' +
-    '      <td width="7%"><p><span >批次</span></p></td>\n' +
-    '      <td width="7%"><p><span >姓名</span></p></td>\n' +
-    '      <td width="6%"><p><span>总数</span></p></td>\n' +
+    '      <td ><p><span>病理医生</span></p></td>\n' +
     '      <td width="10%"><p><span>病理号</span></p></td>\n' +
-    '      <td width="8%"><p><span>蜡块号/数量</span></p></td>\n' +
-    '      <td colspan="5">\n' +
-    '        <p><span>项目明细/实验条件</span>\n' +
+    '      <td width="8%"><p><span>蜡块号</span></p></td>\n' +
+    '      <td width="7%"><p><span >病人姓名</span></p></td>\n' +
+    '      <td width="6%"><p><span>项数</span></p></td>\n' +
+    '      <td colspan="4">\n' +
+    '        <p><span>项目明细</span>\n' +
     '        </p></td>\n' +
+    '      <td  width="10%"><p><span>备注</span></p></td>\n' +
     '    </tr>'
   let tableBottom = '<!-- 第五行 -->\n' +
     '    <tr>\n' +
@@ -79,21 +79,33 @@ export function printIhcsTable(tableData, printer) {
     '    </tr>' + '</table>\n'
 
   let trs = ''
-  let total = 0
+  let total = 0, batch = "", time = ""
   top += tableTop
   let length = tableData.length
   tableData.forEach((data, index) => {
     let tds = ''
     let date = data.timeP
     date = date.substr(0, 10)
-    tds += '<td width="8%">' + date + '</td>'
-    tds += '<td width="12%">' + data.doctor + '</td>'
-    tds += '<td>' + data.batch + '</td>'
-    tds += '<td>' + data.name + '</td>'
-    tds += '<td>' + data.total + '</td>'
+    // 处理time及batch
+    if (index == 0) {
+      time = date
+      batch = data.batch
+    }
+    if (index != 0) {
+      if (time != date)
+        time += ' ' +date;
+      if (batch != data.batch)
+        batch += ' ' + data.batch;
+    }
+    // tds += '<td width="8%">' + date + '</td>'
+    tds += '<td width="12%">' + data.doctor + '</td>';
+    // tds += '<td>' + data.batch + '</td>'
     tds += '<td>' + data.number + '</td>'
     tds += '<td>' + data.son + '</td>'
-    tds += '<td colspan="5" style="text-align: left">' + data.item + '</td>'
+    tds += '<td>' + data.name + '</td>'
+    tds += '<td>' + data.total + '</td>'
+    tds += '<td colspan="4" style="text-align: left; font-size: 16px;">' + data.item + '</td>'
+    tds += '<td style="font-size: 12px">' + data.remark + '</td>'
 
     if (index % 2 == 0) {
       trs = '<tr style="text-align: center; font-size: 14px;background-color: #eeeeee">' + tds + '</tr>';
@@ -134,11 +146,17 @@ export function printIhcsTable(tableData, printer) {
     //   }
     // }
   })
-  top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
+  // top += tableBottom + '<span style=" margin-left: 3px">总计：'+total+' 项</span><br/>\n' +
+  top += tableBottom +
     '  <span style=" margin-left: 3px">打印时间：'+timestamp2String(new Date().getTime())+'</span>\n' +
-    '  <span style="float: right; margin-right: 3px">技术员：'+printer+'</span>\n' +
+    '  <span style="float: right; margin-right: 3px">核对病理技师：'+printer+'</span>\n' +
     '</div>\n' +
-    '</body>\n' +
+    '</body>' +
+    '<script type="text/javascript">' +
+    'window.document.getElementById("total").innerText = "总计：'+total+'项"\n'+
+    'window.document.getElementById("time").innerText = "日期：'+time+'"\n'+
+    'window.document.getElementById("batch").innerText = "批次：'+batch+'"\n'+
+    '</script>' +
     '</html>'
 
   return top;
